@@ -1,0 +1,12 @@
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+
+key = input("Enter 16-character key: ").encode()      # must be 16 bytes
+pt = input("Enter plaintext: ").encode()
+
+cipher = AES.new(key, AES.MODE_ECB)
+ct = cipher.encrypt(pad(pt, 16))
+print("Ciphertext:", ct)
+
+dec = unpad(cipher.decrypt(ct), 16)
+print("Decrypted:", dec.decode())
