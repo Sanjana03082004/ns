@@ -1,12 +1,19 @@
 from Crypto.Cipher import DES
-from Crypto.Util.Padding import pad, unpad
+from Crypto.Random import get_random_bytes
 
-key = input("Enter 8-character key: ").encode() 
-pt = input("Enter plaintext: ").encode()
+key = get_random_bytes(8)
+iv = get_random_bytes(8)
 
-cipher = DES.new(key, DES.MODE_ECB)
-ct = cipher.encrypt(pad(pt, 8))
-print("Ciphertext:", ct)
+text = input("Enter text to encrypt: ").encode()
 
-dec = unpad(cipher.decrypt(ct), 8)
-print("Decrypted:", dec.decode())
+pad = 8 - len(text) % 8
+text += bytes([pad]) * pad
+
+cipher = DES.new(key, DES.MODE_CBC, iv)
+encrypted = cipher.encrypt(text)
+print("Encrypted:", encrypted.hex())
+
+cipher2 = DES.new(key, DES.MODE_CBC, iv)
+decrypted = cipher2.decrypt(encrypted)
+decrypted = decrypted[:-decrypted[-1]]
+print("Decrypted:", decrypted.decode())
