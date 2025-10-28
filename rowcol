@@ -1,0 +1,28 @@
+msg = input("enter thr message")
+d = int(input("Enter the depth"))
+r = d
+c = (len(msg)//d)+1
+# print(r,c)
+mat = [[0]*c for _ in range(r)]
+k = 0
+for i in range(c):
+    for j in range(r):
+        if k<len(msg):
+            mat[j][i] = msg[k]
+            k = k+1
+        else:
+            break 
+
+print("the encrepted text is")
+for i in range(r):
+    for j in range(c):
+        if mat[i][j] != 0:
+            print(mat[i][j],end="")
+print()
+print("the decrypted text is")
+for i in range(c):
+    for j in range(r):
+        if mat[j][i] != 0:
+            print(mat[j][i],end="")
+        else:
+            break
