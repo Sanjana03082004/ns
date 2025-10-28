@@ -1,0 +1,32 @@
+import hashlib
+
+def bytes_to_hex(b):
+    hex_chars = "0123456789ABCDEF"
+    s = ""
+    for byte in b:
+        s += hex_chars[(byte >> 4) & 0x0F]
+        s += hex_chars[byte & 0x0F]
+    return s
+
+print("----- SHA-512 Hashing Program -----")
+print("Algorithm : SHA-512")
+print("Provider  : hashlib (Python Standard Library)\n")
+
+text = input("Enter the text you want to hash: ")
+
+md = hashlib.sha512()
+md.update(text.encode())
+
+# Get the raw digest (bytes)
+digest_bytes = md.digest()
+
+# Convert to HEX (manual function)
+digest_hex = bytes_to_hex(digest_bytes)
+
+# Display output
+print("\nOriginal Text :", text)
+print("Length of Text:", len(text))
+print("Message Digest (Raw Bytes):", digest_bytes)
+print("Message Digest (Hexadecimal):", digest_hex)
+print("Digest Length (bits):", md.digest_size * 8)
+
