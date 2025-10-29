@@ -1,0 +1,28 @@
+p = 23
+g = 5
+print("Prime modulus:", p)
+print("Base:", p)
+
+#private keys
+a = int(input("enter private key of alex:"))
+b = int(input("enter private key of bob:"))
+
+#public keys
+A = pow(g,a,p)
+B = pow(g,b,p)
+
+print("public key of alex",A)
+print("public key of bob",B)
+
+
+#secret key
+sa = pow(B,a,p)
+sb = pow(A,b,p)
+
+print("secret key of alex",sa)
+print("secret key of bob",sb)
+
+if sa == sb:
+    print("success!")
+else:
+    print("error")
